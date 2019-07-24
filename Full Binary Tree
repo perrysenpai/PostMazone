@@ -1,0 +1,17 @@
+Given a Binary tree, your task is to check whether the Binary tree is a full binary tree or not.
+
+
+ifFull(Node root)
+{
+    if(root==null)
+    return true;
+    
+    if(root.left==null && root.right==null)
+    return true;
+    
+    if(root.left==null || root.right==null)
+    return true;
+    
+      return isFull(node.left)&isFull(node.right);
+    
+}
