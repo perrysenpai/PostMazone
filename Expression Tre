@@ -1,0 +1,25 @@
+Given an Expression Tree, return the value of the expression:
+
+public int evalTree(Node root)
+      {
+          if(root==null)
+          return 0;
+          
+          if(root.left==null && root.right==null)
+          return Integer.parseInt(root.data);
+          
+          int left=evalTree(root.left);
+          int right=evalTree(root.right);
+          
+          if(root.data.equals("+"))
+          return left+right;
+          
+          if(root.data.equals("-"))
+          return left-right;
+          
+          if(root.data.equals("*"))
+          return left*right;
+          
+
+          return left/right;
+      }
