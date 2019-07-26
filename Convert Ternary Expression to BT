@@ -1,0 +1,108 @@
+Input:
+2
+a?b:c
+a?b?c:d:e
+Output:(in preorder)
+
+a b c
+a b c d e
+
+                a
+              /  \
+             b    c
+
+                 a
+                /  \
+              b    e
+             /  \
+            c    d
+            
+Solution:  
+    import java.util.*;
+    public class Tree {
+    Node head;
+    static class Node
+    {
+        int data;
+        Node left;
+        Node right;
+        
+        Node(int d)
+        {
+            data=d;
+            left=null;
+            right=null;
+        }
+    }
+    
+    public static Node convertToTernaryExpression(String str)
+    {
+        if(str.length()==0)
+        return null;
+        
+        Stack<Node> st=new Stack<Node>();
+        Node head=new Node(str.charAt(0));
+        st.push(head);
+        
+        
+        for(int i=1; i<str.length(); i=i+2)
+        {
+            if(str.charAt(i)=='?')
+            {
+            Node top=st.peek();
+            Node left=new Node(str.charAt(i+1));
+            top.left=left;
+            st.push(left);
+            }
+            
+            if(str.charAt(i)==':')
+            {
+            st.pop();
+            Node top=st.pop();
+            Node right=new Node(str.charAt(i+1));
+            top.right=right;
+            st.push(right);
+            }
+        }
+        
+        return head;
+    }
+    
+    public static void printPre(Node root)
+    {
+        if(root==null)
+        return;
+        
+         System.out.print((char)root.data+" ");
+        
+        printPre(root.left);
+       
+        printPre(root.right);
+        
+        
+    }
+    
+    
+    public static void main(String args[]) 
+    {
+        Scanner scan=new Scanner(System.in);
+        int cases=scan.nextInt();
+        while(cases-->0)
+        {
+            String str=scan.next();
+            System.out.println(str);
+            
+            Tree t=new Tree();
+            t.head=convertToTernaryExpression(str);
+            if(t.head==null)
+            {
+                System.out.println("empty tree");
+            }
+            else
+            {
+            printPre(t.head);
+            System.out.println();
+            }
+        }
+    }
+}
