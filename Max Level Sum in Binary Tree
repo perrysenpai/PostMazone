@@ -1,0 +1,31 @@
+https://practice.geeksforgeeks.org/problems/max-level-sum-in-binary-tree/1
+
+
+Solution: Using QUEUE:
+public static int maxLevelSum(Node root)
+         {
+                Queue<Node> q=new LinkedList<Node>();
+                q.add(root);
+                int size=1;
+                int maxsum=Integer.MIN_VALUE;
+                int sum=0;
+                while(!q.isEmpty())
+                {
+                    while(size--!=0)
+                    {
+                        Node temp=q.remove();
+                        if(temp.left!=null)
+                        q.add(temp.left);
+                        if(temp.right!=null)
+                        q.add(temp.right);
+                        
+                        sum=sum+temp.data;
+                    }
+                    
+                    maxsum=Integer.max(sum,maxsum);
+                    sum=0;
+                    size=q.size();
+                }
+                
+                return maxsum;
+         }
