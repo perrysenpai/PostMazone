@@ -16,7 +16,15 @@ a b c d e
               b    e
              /  \
             c    d
-            
+
+Note: as this is using a ternary operator . therefore a tree can have both right and left children, or none but not one of them only
+Approach:  use a stack:   1.push character at 0th index to stack.
+                          2.when a ? is encountered push the next character from the string into the stack and make it left of peek of stack.
+                          3.when a : is encountered it means that the top of stack doesnt have left child so pop it.
+                                      now the top of stack is poped and the next character from the string is made right of this poped node
+                                      push this right child to stack.
+                          4.return starting node:
+
 Solution:  
     import java.util.*;
     public class Tree {
