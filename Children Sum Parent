@@ -1,0 +1,28 @@
+Given a binary tree, complete the function that returns true if the tree satisfies the following property:
+For every node, data value must be equal to the sum of data values in left and right children. Consider data value as 0 for NULL child.  Also, leaves are considered to follow the property.
+
+Solution: Recursive:  returns true or false
+public static boolean isSumProperty(Node node)
+{
+    if(node==null)
+    return true;
+    
+    if(node.left==null && node.right==null)
+    return true;
+    
+    int left=0;
+    int right=0;
+    
+    if(node.left!=null)
+    left=node.left.data;
+    
+    if(node.right!-null)
+    right=node.right.data;
+    
+    if(root.data=left+right)
+    {
+          return isSumProperty(node.left)&&isSumProperty(node.right);
+    }
+    return false;
+    
+}
