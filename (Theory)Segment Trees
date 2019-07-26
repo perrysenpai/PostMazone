@@ -1,0 +1,98 @@
+Segment Trees:  1. Height balanced Complete Binary Trees. 
+                2. These have Similarity to Heap in terms that both are represented in form of arrays.
+                3. The Parent of ith index element resides in (i-1)/2 index.
+                   The left and right children of ith index element reside at 2*i+1 and 2*i+2th indexes.
+                4. Utility: It creates query paths that limit the amount of processing required to return data.
+                    e.g if we are given an array and we want the sum till ith index and change the value at a specific index to a new value
+                    this can be done as
+                    a.  run a loop from i=l to i=h and get the required sum which takes O(n) time and changing the element requires O(1) time
+                    b.  making asum array . now the sum is got in O(1) time but the changin the value takes O(n) time.
+                    c.  USE A SEGMENT TREE.
+                  Segment trees can be used for these but are not limited to:
+                  .Sum all elements in a range.
+                  .Find the min or max value of elements in a range.
+                  .Update all elements in a range.
+                  
+                 
+                 
+Consider the input array: {1, 3, 5, 7, 9, 11}    
+
+
+it is represented as                     36
+                                     /        \
+                                  9              27
+                                /    \         /     \
+                             4         5     16        11
+                           /  \             /  \
+                          1    3           7    9
+                          
+memory rrepresentation of segment tree for i=given input array:    {36,9,27,4,5,6,11,1,3, NULL ,NULL,7,9,NULL,NULL }
+
+Construction of Segment tree from given array:   if array length is n, then the total nodes are= 2n-1  excluding the dummy nodes i.e 11 here for n=6;
+Hence the total size of this segment array is:   if n=power of 2 them size= 2*n-1
+                                                 if n!=power of 2 then size=2*m-1 m is next power of two
+
+Height  of segment tree= log2(n)
+size of tree=2*2^height-1
+                                                 
+                                                 
+                                                 
+CODE+EXPLANATION:
+
+class segmentTree
+{
+      int st[];
+      segmentTree(int arr[], int n)
+      {
+          int size=  2*    (1<<(int)Math.ceil(Math.log10(n)/Math.log10(2)))   -1; 
+          st=new int[size];
+          
+          
+          //to fill the st we call constructSTUtil funtion
+          
+          constructSTUtil(st,0,n-1,0);     
+      }
+      
+      
+      getMid(int s, int e)
+      return (s+e)/2;
+      
+      //now the function to get the sum of range
+      
+      // ss and se are starting and ending index of segment represented by current node si
+      // qs and qe are starting and ending index of the given query range 
+      // si is the index to the current node of the tree
+      
+      int getSum(int ss, int se, int qs, int qe, int si)
+      {
+            // if the current segmentis part of range return the sum of the segment
+            if (qs <= ss && qe >= se) 
+            return st[si]; 
+            
+            // If segment of this node is outside the given range 
+            if (se < qs || ss > qe) 
+            return 0; 
+  
+           // If a part of this segment overlaps with the given range 
+           int mid = getMid(ss, se); 
+           return getSumUtil(ss, mid, qs, qe, 2 * si + 1) + 
+                getSumUtil(mid + 1, se, qs, qe, 2 * si + 2); 
+      }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+                                                 
+
+                            
+                    
+                 
