@@ -39,45 +39,155 @@ size of tree=2*2^height-1
                                                  
 CODE+EXPLANATION:
 
-class segmentTree
+
+class SegmentTree
 {
-      int st[];
-      segmentTree(int arr[], int n)
-      {
-          int size=  2*    (1<<(int)Math.ceil(Math.log10(n)/Math.log10(2)))   -1; 
-          st=new int[size];
-          
-          
-          //to fill the st we call constructSTUtil funtion
-          
-          constructSTUtil(st,0,n-1,0);     
-      }
-      
-      
-      getMid(int s, int e)
-      return (s+e)/2;
-      
-      //now the function to get the sum of range
-      
-      // ss and se are starting and ending index of segment represented by current node si
-      // qs and qe are starting and ending index of the given query range 
-      // si is the index to the current node of the tree
-      
-      int getSum(int ss, int se, int qs, int qe, int si)
-      {
-            // if the current segmentis part of range return the sum of the segment
-            if (qs <= ss && qe >= se) 
-            return st[si]; 
-            
-            // If segment of this node is outside the given range 
-            if (se < qs || ss > qe) 
-            return 0; 
-  
-           // If a part of this segment overlaps with the given range 
-           int mid = getMid(ss, se); 
-           return getSumUtil(ss, mid, qs, qe, 2 * si + 1) + 
-                getSumUtil(mid + 1, se, qs, qe, 2 * si + 2); 
-      }
+		int st[];
+		SegmentTree(int ar[],int n) 
+		{
+			int size=2*(1<<(int)Math.ceil((Math.log10(n)/Math.log10(2))))-1;
+			
+			
+			st=new int[size];
+			
+			//Method to construct a segment tree
+			constructSTUtil(ar,0,n-1,0);
+		}
+		
+		int getMid(int s, int e)
+		{
+		return (s+e)/2;
+		}
+		
+		int constructSTUtil(int ar[], int ss, int se, int si)
+		{
+			// If there is one element in array, store it in current node of 
+	        // segment tree and return
+			if(ss==se)
+			{
+				st[si]=ar[ss];
+				return ar[ss];
+			}
+			
+			int mid=getMid(ss, se);
+			st[si]=constructSTUtil(ar, ss, mid, 2*si+1)+constructSTUtil(ar, mid+1, se, 2*si+2);
+			return st[si];
+		}
+		
+		
+		// a recursive function to get the sum of the values for a range
+		
+		/* ss  and se are the starting and ending index of the segment represented by the current node si in the "GIVEN ARRAY"
+		   qs and  qe are the starting and ending index of range in which sum is to be found in the "GIVEN ARRAY".
+		   si is the index of the current node of the "SEGMENT TREE ARRRAY" (initially 0)  */
+		
+		int getSumUtil(int ss, int se, int qs, int qe, int si)
+		{
+			if(ss>=qs && se<=qe)
+				return st[si];
+			
+			if(ss>qs && se<qs)
+				return 0;
+			
+			int mid=getMid(ss,se);
+			
+			
+			return getSumUtil(ss, mid, qs, qe, 2*si+1)+getSumUtil(mid+1, se, qs, qe, 2*si+2);
+			// because in the segment tree the sum of ss and upto mid is stored in left child of current and mid+1 to se is stored in the right child of current
+			/*e.g  			
+			 							36
+                                     /        \
+                                  9              27
+                                /    \         /     \
+                             4         5     16        11
+                           /  \             /  \
+                          1    3           7    9
+                          
+                          ar[]={1,3,5,7,9,11}
+                          st[] = {36, 9, 27, 4, 5, 16, 11, 1, 3, DUMMY, DUMMY, 7, 9, DUMMY, DUMMY}  // this is formed in constructSTUtil
+                          now lets suppose we want sum in range [0,3]
+                          
+                          so ss=0, se=5, qs=0, qe=3, si=0;
+                          now mid=5+0/2=2
+                          so we have getSumUtil(0,2,0,3,0*2+1)      +            getSumUtil(3,5,0,3,0*2+2)
+                          		this satisfies first return condition            mid=3+5/2=4 and so we have getSumUtil(3,4,0,3,2*2+1)      +            getSumUtil(5,5,0,3,2*2+2)
+                          		so return si[0*2+1]=si[1]=9;					                            mid=4+3/2=3                                 exclusive of range return statement 2 return 0
+                          																					getSumUtil(3,3,0,3,5*2+1)+exclusive for(4,4)
+                          																					return statemnt 1 so s[11]=7
+                          total sum becomes 9+7=16
+
+			 */
+			
+		}
+		
+		int getSum(int start, int end, int n)
+		{
+			if(start<0 || end>n-1 || end<start)
+			{
+				System.out.println("Invalid Output");
+				return -1;
+			}
+			
+			
+				return getSumUtil(0, n-1, start, end, 0);	
+		}
+		
+		// recursive function to make segment tree
+		/* i=index of the element to be updated
+		 * diff=value to be added to all the  nodes which have i in range
+		 */
+		void updateValueUtil(int ss, int se, int i, int diff, int si)
+		{
+			if(i<ss || i>se)
+				return ;
+			
+			st[si]=st[si]+diff;
+			if(se!=ss)
+			{
+				int mid=getMid(se,ss);
+				updateValueUtil(ss, mid , i, diff, 2*si+1);
+				updateValueUtil(mid+1, se , i, diff, 2*si+2);
+			}
+		}
+		
+		
+		void updateValue(int ar[], int i, int newVal)
+		{
+			if (i < 0 || i > ar.length - 1) { 
+	            System.out.println("Invalid Input"); 
+	            return;
+			}
+			
+			
+			int diff=newVal-ar[i];
+			ar[i]=newVal;
+			
+			updateValueUtil(0, ar.length - 1, i, diff, 0);
+			
+		}
+		
+		
+		public static void main(String args[]) 
+	    { 
+	        int ar[] = {1, 3, 5, 7, 9, 11}; 
+	        int n = ar.length; 
+	        SegmentTree  tree = new SegmentTree(ar, n);
+	        System.out.println(Arrays.toString(tree.st));
+	  
+	        // Build segment tree from given array 
+	  
+	        // Print sum of values in array from index 1 to 3 
+	        System.out.println("Sum of values in given range = " + 
+	                           tree.getSum(n, 1, 3)); 
+	  
+	        // Update: set ar[1] = 10 and update corresponding segment 
+	        // tree nodes 
+	        tree.updateValue(ar, 1, 10); 
+	  
+	        // Find sum after the value is updated 
+	        System.out.println("Updated sum of values in given range = " + 
+	                tree.getSum(n, 1, 3)); 
+	    } 
 }
 
 
