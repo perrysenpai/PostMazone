@@ -1,0 +1,20 @@
+public static int getLevel(Node root, int key)
+    {
+            if(root==null)
+            return 0;
+            
+            if(root.data==key)
+            return 1;
+            
+            int left=getLevel(root.left, key);
+            int right=getLevel(root.right, key);
+            
+            if(left!=0)
+            return 1+left;
+            
+            if(right!=0)
+            return 1+right;
+            
+            //if(left==0 && right==0)
+            return 0;
+    }
