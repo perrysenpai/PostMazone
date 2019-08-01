@@ -1,0 +1,51 @@
+ 
+ Recursive:
+ 
+ void rightView(Node node) {
+        HashMap<Integer, Integer> map=new HashMap<>();
+        right(node, map, 0);
+        for(int x: map.keySet())
+        System.out.print(map.get(x)+" ");
+    }
+    
+    void right(Node node, HashMap<Integer,Integer> map, int dist)
+    {
+        if(node==null)
+        return;
+        
+        if(!map.contains(dist))
+        map.put(dist,node.data);
+        
+        right(node.right, map, dist+1);
+        right(node.left, map, dist+1);
+    
+
+    }
+    
+    
+ Iterative Using QUEUE: level order traversal
+   void rightView(Node node) {
+        Queue<Node> q=new LinkedList<Node>();
+        q.add(node);
+        
+        int size=1;
+        
+        while(!q.isEmpty())
+        {
+          while(size-->0)
+          {
+              Node temp=q.remove();
+              if(size==1)
+              System.out.print(temp.data+" ");
+              
+              if(temp.left!=null)
+              q.add(temp.left);
+              
+              if(temp.right!=null)
+              q.add(temp.right);
+              
+          }
+          
+          size=q.size();
+        }
+    }
