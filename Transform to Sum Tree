@@ -1,0 +1,24 @@
+             10
+          /      \
+        -2        6
+       /   \     /  \
+     8     -4   7    5
+
+should be changed to
+
+       20(4-2+12+6)
+          /      \
+     4(8-4)      12(7+5)
+       /   \        /  \
+     0      0       0    0
+     
+     
+ int toSumTree(Node root)
+ {
+  if(root==null)
+  return 0;
+  
+  int temp=root.data
+  root.data=toSumTree(node.left)+toSumTree(node.right);
+  return temp+root.data;
+ }
