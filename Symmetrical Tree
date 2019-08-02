@@ -1,0 +1,13 @@
+public static boolean iss(Node root,Node root1)
+    {
+       if(root==null && root1==null)
+       return true;
+
+       if(root!=null && root1!=null && root.data==root1.data)
+       {
+           return iss( root.left, root1.right)&iss( root.right, root1.left);
+       }
+       
+       return false;
+       
+       }
