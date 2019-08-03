@@ -1,0 +1,32 @@
+BST is like this 
+
+          20
+      10        30
+    4    13    21    32
+  1   6
+  
+  we have n1 and n2 as two node data we need to find the leats common ancestor.
+  so if data of root < both n1 and n2 then it means the LCS lies in the right side and
+     if data of root > both n1 and n2 then it means the LCS lies in the left side.
+     
+     if not that means it is between n1 and n2 ,so return the node.
+     we recusively do this to get the answer.
+     
+     
+     
+    Node LCA(Node root, int n1, int n2) 
+    {
+        if(root==null)
+        return null;
+        
+        if(root.data>n1 && root.data>n2)
+        return LCA( root.left,  n1,  n2) ;
+        
+        if(root.data<n1 && root.data<n2)
+        return LCA( root.right,  n1,  n2) ;
+        
+        return root;
+        
+        
+    }
+  
