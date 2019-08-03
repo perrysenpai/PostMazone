@@ -1,0 +1,71 @@
+Previously we checked for binary search tree
+now for binary tree.
+
+
+        1
+  2            3
+4   5         6  7
+
+
+
+
+Node LCA(Node node, int n1, int n2)
+{
+    if(node==null)
+    return null;
+    
+    if(node.data==n1 || node.data==n2)
+    return node;
+    
+    Node left=LCA(node.left, n1, n2);
+    Node right=LCA(node.right, n1, n2);
+    
+    if(both null)
+    return null;
+    
+    if(both not null)
+    return node; 
+    
+    if(one is null)
+    return one not null;
+    
+}
+
+lets say we have 5 and 7;
+1.  node.data=1 and it is not equal to 5 or 7
+    2.left= 2recurse  2 is not equal to 6 or 7                                  right =3recurse
+        3.  left=4recusrse                       right=5
+            and 4 is not equal to 6 or 7          |
+            4. left=null and right==null          |
+            both are null so return null          |
+                                                  ↓ 
+            3. left becomes null              node.data=5
+                                              and n1==5
+                                              so return node;
+                                              
+            left of 2 is null and right of 2 is not null
+            one is null so return one not null i.e 5
+    
+    left=5 and                                                                right=3recurse 3 is not equal to 5 or 7
+                                                                              left=6recurse                right=7recurse
+                                                                                  l=null and r==null
+                                                                                   return null
+                                                                              left=null                    right=7recurse
+                                                                                                           node.data=n2
+                                                                                                           return node
+                                                                                                           
+                                                                                                           right=7
+                                                                              left==null but right is notnull
+                                                                              hence return right=7
+                                                                              
+left=5 and right==7
+both not null
+so return node=1
+
+
+answer is 1.
+                                                                              
+
+
+
+
