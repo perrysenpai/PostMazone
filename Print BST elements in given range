@@ -1,0 +1,13 @@
+void printNearNodes(Node node, int k1, int k2)
+{
+    if(node==null)
+    return ;
+    
+    if(node.data<k1)
+    printNearNodes(node.left);
+    
+    System.out.println(node.data+" ");
+    
+    if(node.data>k2)
+    printNearNodes(node.right);
+}
