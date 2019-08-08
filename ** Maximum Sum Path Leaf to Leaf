@@ -28,12 +28,9 @@ class paras
         int left=maxSum(node.left, A);
         int right=maxSum(node.right, A);
         
-        if(node.left!=null && node.right!=null)
-        {
-            A.x=Math.max(A.x, root.data+left+right);
-        }
+        A.x=Math.max(A.x, root.data+left+right);
         
-        return node.left==null?root.data+right: root.data+left;
+        return root.data+Math.max(left,right);
         
       }
 }
