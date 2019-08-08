@@ -1,0 +1,39 @@
+we have to find the max sum path from one leaf to to other.
+
+class paras
+{
+      static class Variable   // made just to pass the static variable
+      {
+          static int x=Integer.MIN_VALUE;
+      }
+      
+      
+      public static int maxPathSum(Node root)
+      {
+            Variable A=new Variable();
+            A.x=0;
+            maxSum(root, A);
+            
+            return A.x;
+      }
+      
+      public static int maxSum(Node node, Variable A)
+      {
+        if(node==null)
+        return 0;
+        
+        if(node.left!=null && node.right!=null)
+        return node;
+        
+        int left=maxSum(node.left, A);
+        int right=maxSum(node.right, A);
+        
+        if(node.left!=null && node.right!=null)
+        {
+            A.x=Math.max(A.x, root.data+left+right);
+        }
+        
+        return node.left==null?root.data+right: root.data+left;
+        
+      }
+}
