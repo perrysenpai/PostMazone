@@ -1,0 +1,78 @@
+1. Approach is to check the height of the left subtree and right subtree . the total of these is to be returned, so each node is cheked for the
+   right and the left subtree , so the maximum of this total is returned.
+   
+Solution 1. Takes o(n2)
+
+int diameter(Node root)
+    {
+        if(root==null)
+        return 0;
+        
+        int left=1+max(root.left);
+        int right=max(root.right);
+        
+        return Math.max((left+right),Math.max(diameter(root.left),diameter(root.right)));
+    }
+    
+    int max(Node root)
+    {
+        if(root==null)
+        return 0;
+        
+        return 1+Math.max(max(root.left),max(root.right));
+    }
+    
+    
+Solution 2. O(n)   
+class Tree
+{
+    static int max=0;
+    int diameter(Node root)
+    {
+        if(root==null)
+        return 0;
+        
+        int left=diameter(root.left);
+        int right=diameter(root.right);
+        
+        max=Math.max(left+right+1,max);
+        
+        return Math.max(1+left,1+right);
+    }
+    }
+    
+    after this print the "max".
+    
+
+Soution 3.  Using static class variable:
+
+static class var
+    {
+        static int x=0;
+    }
+    int diameter(Node root)
+    {
+        var A=new var();
+        
+        isdia(root, A);
+        return A.x;
+    }
+    
+    int isdia(Node root, var A)
+    {
+        if(root==null)
+        return 0;
+        
+        int left=isdia(root.left,A);
+        int right=isdia(root.right,A);
+        
+        A.x=Math.max(A.x, 1+left+right);
+        
+        return 1+Math.max(left, right);
+        
+    }
+    
+    
+    
+    
+    
