@@ -1,0 +1,48 @@
+Apprioach:  1. make an array with no of elements= no of nodes.
+            2. put the elements of nodes into the array in inorder.
+            3. sort this array.
+            4. make a new tree from this array .
+
+class BinaryTree
+{
+    static int x=0;
+    toBST(node root)
+    {
+        int n=countNodes(root);  // function to count the number of nodes in tree;
+        int ar[]=new int[n];
+        makeArray(root, ar);     // make the array in inorder
+        
+        Arrays.sort(ar);         // sort the array
+        
+        Node m=convertToBST(ar, 0, n-1);
+        return m;
+        
+    }
+    
+    Node convertToBST(int ar[], int start, int end)     make a new tree from the sorted array.
+    {
+        if(start>end)
+        return null;
+        
+        int mid=(start+end)/2;
+        Node m=new Node(ar[mid]);
+        m.left=convertToBST( ar[],  start,  mid-1);
+        m.right=convertToBST( ar[],  mid+1,  end);
+        
+        
+        return m;
+    }
+    
+    
+    void makeArray(Node root, int ar[])
+    {
+      if(root==null)
+      return ;
+      
+      ar[i]=root.data;
+      i++;
+      makeArray( root.left, int ar[]);
+      makeArray( root.right, int ar[]);
+    }
+    
+}
