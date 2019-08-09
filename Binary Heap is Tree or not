@@ -1,0 +1,61 @@
+		            97
+	      46		           37
+     12     3           7   31
+           2  5   
+
+
+
+
+
+
+boolean isBinaryTree(Node root)
+{
+    if(root==null)           // base case
+    return true;
+    
+    Queue<Node> q=new LinkedList<Node>();
+    q.add(node);
+    int size=1;
+    
+    
+    while(!q.isEmpty())
+    {
+      boolean nullencountered=false;       // this variable is used to check if the previous node has null children but the adjacent node has
+                                           //  LEFT OR RIGHT children then the condition of perfect tree is violated
+                                           
+      while(size-->0)
+      {
+          Node temp=q.remove();
+          Node left=temp.left;
+          Node right=temp.right;
+          
+          
+          
+          if(nullencountered==true && left!=null)    // if in the same level previously there was no element and now new element comes then false
+          return false;                              // becuase it is perfect tree and it should not be ike tree shown above
+          
+          if(left==null)
+          nullencountered=true;
+          
+          if(nullencountered==true && right!=null)
+          return false;
+          
+          if(right==null)
+          nullencountered=true;
+          
+          if(left!=null && right!=null && (left.data>temp.data || right.data>temp.data))    //max heap property violated
+          return false;
+          
+          if(left!=null)
+          q.add(left);
+          
+          if(right!=null)
+          q.add(right);
+          
+          
+          
+      }
+      size=q.size();
+    }
+    return true;
+}
