@@ -1,0 +1,15 @@
+delete(Node node, int x)
+{
+    if(node==null)
+    return null;
+    
+    if(node.data==x)
+    return node.left;
+    
+    if(node.data>x)
+    return delete(node.left);
+    
+    node.left=delete(node.left);
+    node.right=delete(node.right);
+    return node;
+}
