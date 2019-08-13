@@ -1,0 +1,40 @@
+public int minLeafSum(Node node){    
+    if(node==null)
+        return 0;
+        
+        Queue<Node> q=new LinkedList<Node>();
+        q.add(node);
+        int size=1;
+        boolean low=false;
+        int sum=0;
+        
+        while(!q.isEmpty())
+        {
+            while(size-->0)
+            {
+             Node temp=q.remove();
+             if(low==false && temp.left==null && temp.right==null)
+             {
+                 low=true;
+             }
+             
+             if(low==true && temp.left==null && temp.right==null )
+             sum=sum+temp.data;
+             
+             if(temp.left!=null)
+             q.add(temp.left);
+             
+             if(temp.right!=null)
+             q.add(temp.right);
+            }
+            
+            size=q.size();
+            
+            if(low==true)
+            {
+                break;
+            }
+        }
+        
+        return sum;
+    }
