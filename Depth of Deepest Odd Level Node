@@ -1,0 +1,40 @@
+Sol1. Using Queue
+
+depth(Node node)
+{
+    Queue<Node> q=new LinkedList<>();
+    q.add(node);
+    int size=1;
+    int max=0;
+    int lev=1;
+    while(!q.isEmpty())
+    {
+      while(size-->0)
+      {
+          Node temp=q.remove();
+          if(lev%2==1 && temp.left==null && temp.right==null)
+          {
+             max=Math.max(lev,max);
+             continue;
+          }
+          
+          if(temp.left!=null)
+          q.add(temp.left);
+          
+          if(temp.right!=null)
+          q.add(temp.right);
+      }
+    }
+}
+
+
+2. recusive: public static int depthOfOddLeafUtil(Node root, int level)
+    {
+        if(root==null)
+        return 0;
+        
+        if(level%2==1 && root.left==null && root.right==null )
+        return level;
+        
+        return Math.max(depthOfOddLeafUtil( root.left,  level+1),depthOfOddLeafUtil( root.right,  level+1));
+    }
