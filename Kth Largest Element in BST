@@ -1,0 +1,24 @@
+We know in BST if we do Preorder traversal we get the sorted array.
+We make use of this property to find out the Kth largest element.
+
+class GfG
+{
+    static int x=1;
+    public void kthLargest(Node root,int k)
+    {
+        x=1;
+        KthLargest(root,k);
+    }
+    
+    public void KthLargest(Node root, int k)
+    {
+        if(root==null)
+        return;
+        
+        KthLargest(root.right,k);
+        if(x==k)
+        System.out.println(root.data);
+        x++;
+        KthLargest(root.left,k);
+    }
+}
