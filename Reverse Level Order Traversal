@@ -1,1 +1,23 @@
 
+	void reversePrint(Node node) 
+        {
+            Queue<Node> q=new LinkedList<Node>();
+            q.add(node);
+            int size=1;
+            String s="";
+            while(!q.isEmpty())
+            {
+                while(size-->0)
+                {
+                    Node temp=q.remove();
+                    s=s.equals("")?s+temp.data:temp.data+" "+s;
+                    if(temp.right!=null)
+                    q.add(temp.right);
+                    
+                    if(temp.left!=null)
+                    q.add(temp.left);
+                }
+                size=q.size();
+            }
+             System.out.print(s);
+        }
