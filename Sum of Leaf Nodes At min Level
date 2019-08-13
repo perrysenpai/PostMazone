@@ -1,0 +1,37 @@
+static int sum=0;
+    static int minLevel=1000000;
+    public int minLeafSum(Node root)
+    {
+       if(root==null)
+       return 0;
+        
+       sum=0;
+       minLevel=9999999;
+       int level=1;
+       minLeaf(root, level);
+       return sum;
+    }
+    
+    public void minLeaf(Node root, int level)
+    {
+        if(root==null)
+        return ;
+        
+        if(root.left==null && root.right==null && level<minLevel)
+        {
+            minLevel=level;
+            sum=root.data;
+            return ;
+        }
+        
+        if(root.left==null && root.right==null && level==minLevel)
+        {
+            sum=sum+root.data;
+            return ;
+        }
+        
+        minLeaf(root.left, level+1);
+        minLeaf(root.right, level+1);
+        
+        
+    }
