@@ -1,6 +1,6 @@
 Given a key value find the predecessor and Successor of the key in the tree. if any not present print -1;
 
-1. Using inorder Traversal:   works both for BST and BT
+1. Using Preorder Traversal:   works both for BST and BT
 
 void preSucc(Node node, Res p, Res s, int key)
 {
