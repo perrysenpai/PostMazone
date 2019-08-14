@@ -1,0 +1,72 @@
+1.  Iterative
+boolean check(Node root)
+    {    if(root==null)
+          return true;
+          
+         Queue<Node> q=new LinkedList<Node>();
+         q.add(root);
+         int size=1;
+         int level=0;
+         int leaf=0;
+         while(!q.isEmpty())
+         {
+             level++;
+             while(size-->0)
+             {
+                 Node temp=q.remove();
+                 if(leaf==0 && temp.left==null && temp.right==null)
+                 {
+                     leaf=level;
+                 }
+                 else if(leaf!=0 && temp.left==null && temp.right==null)
+                 {
+                     if(leaf!=level)
+                     return false;
+                 }
+                 
+                 if(temp.left!=null)
+                 q.add(temp.left);
+                 
+                 if(temp.right!=null)
+                 q.add(temp.right);
+    
+             }
+             
+             size=q.size();
+         }
+         
+         return true;
+    }
+    
+    
+ 2.Reusrsive:
+  CHECK HEIGHT OF TREE;
+  IF THE EVERY LEAF OF TREE IS AT LEVEL==HEIGHT THEN TRUE ELSE  FALSE
+  
+  class GfG
+{  
+    boolean check(Node root)
+    {
+        int n=height(root);
+        return Check(root,1, n);
+    }
+    
+    boolean Check(Node root, int lev, int n)
+    {
+        if(root==null)
+        return true;
+        
+        if(root.left==null && root.right==null)
+        return lev==n;
+        
+        return Check(root.left, lev+1, n)&Check(root.right ,lev+1, n);
+    }
+    
+    int height(Node root)
+    {
+        if(root==null)
+        return 0;
+        
+        return 1+ Math.max(height(root.left),height(root.right));
+    }
+}
