@@ -1,0 +1,35 @@
+class GfG
+{
+    static int max=0;
+    static int maxlev=0;
+    public int sumOfLongRootToLeafPath(Node root)
+    {   
+        max=0;
+        maxlev=0;
+        sum(root, 0, 1);
+        return max;
+    }
+    
+    public void sum(Node root, int sum, int lev)
+    {
+        if(root==null)
+        return;
+        
+        sum=sum+root.data;
+        
+        if(lev>maxlev && root.left==null && root.right==null)
+        {
+            maxlev=lev;
+            max=sum;
+            return;
+        }
+        if(lev==maxlev && root.left==null && root.right==null)
+        {
+            max=Math.max(max,sum);
+            return;
+        }
+        
+        sum(root.left, sum, lev+1);
+        sum(root.right,sum, lev+1);
+    }
+}
