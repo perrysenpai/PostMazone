@@ -1,0 +1,74 @@
+Given a key value find the predecessor and Successor of the key in the tree. if any not present print -1;
+
+1. Using inorder Traversal:   works both for BST and BT
+
+void preSucc(Node node, Res p, Res s, int key)
+{
+    if(node==null)
+    return;
+    
+    if(node.data<key)
+    {
+        if(p.pre==null)
+        p.pre=node;
+        
+        else
+        p.pre=node.data>p.pre.data?node:p.pre;
+    }
+    
+    if(node.data>key)
+    {
+        if(s.succ==null)
+        s.succ=node;
+        
+        else
+        s.succ=node.data>s.succ.data?node:s.succ;
+    }
+    
+    preSucc(node.left, p,s key);
+    preSucc(node.right,p,s, key);
+}
+
+2. 
+
+    public static void findPreSuc(Node root, Res p, Res s, int key)
+    {
+       if(root==null)
+       return;
+        
+       if(root.data==key)        // if root is equal to key value then the predecessor is either left child or the rightest child in left subtree
+       {
+           if(root.left!=null)       
+           {
+               Node temp=root.left;
+               while(temp.right!=null)
+               temp=temp.right;
+               
+               p.pre=temp;
+           }
+           
+           if(root.right!=null)
+           {
+               Node temp=root.right;
+               while(temp.left!=null)
+               temp=temp.left;
+               
+               s.succ=temp;
+           }
+           
+           return;
+       }
+       
+       if(root.data<key)
+       {
+           p.pre=root;
+           findPreSuc(root.right,p,s,key);
+       }
+       
+       if(root.data>key)
+       {
+           s.succ=root;
+           findPreSuc(root.left,p,s,key);
+       }
+       
+    }
