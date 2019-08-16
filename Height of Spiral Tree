@@ -1,0 +1,42 @@
+A spiral tree is that where the lead node instead of pointing its left and right children as null, points to a nodes of doubly linked list. e.g
+
+              4
+         5        6
+       7   8     9  10
+  
+  
+  here a leaf node is 7 . instead of pointing left and right to null , it is like this
+                               
+                               4
+                     5                 6
+                 𝟳      8           9    10
+                /  \
+  1---->2----->3     10---->11
+  ↑                          |
+  \                          |
+   \                         ↓	
+   15<-----14<------13<-----12
+   
+   
+   and so are the rest of the leaf nodes.
+   so to find out the max height we use the same algo as normal tree except we need some different way to know if the node is leaf or not
+   so what we can do is check node-->left--->right  if it points to the same node of tree then it is the leaf node. e.g 7's left is 3 and 3's right is 7
+   therefor it is a leaf node.
+  
+  public int treeHeight(Node root){
+        if(root==null)
+        return 0;
+        
+        if(isLeaf(root))
+        return 1;
+        
+        return 1+Math.max(treeHeight(root.left),treeHeight(root.right));
+    }
+    
+    public boolean isLeaf(Node root)
+    {
+        if(root.left!=null && root.left.right==root)
+        return true;
+        
+        return false;
+    }
