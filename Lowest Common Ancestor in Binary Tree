@@ -1,0 +1,51 @@
+We use two boolean variables to check if both the roots are present or not
+
+
+class Tree
+{
+/* If n1 and n2 are present, return reference
+   to LCA. If both are not present, return 
+   null,. Else if left subtree contains any 
+   of them return pointer to left.*/
+        static boolean b1=false;
+        static boolean b2=false;
+	Node lca(Node root, int n1, int n2)
+    {
+        b1=false;
+        b2=false;
+        Node x=LCA(root, n1, n2);
+        
+        
+        if(b1==false && b2==false)
+        return null;
+        
+        return x;
+        
+        
+    }
+	Node LCA(Node root, int n1,int n2)
+	{
+		if(root==null)
+		return null;
+		
+		if(root.data==n2 )
+		{
+		b2=true;
+		return root;
+		}
+		
+		if(root.data==n1 )
+		{
+		b1=true;
+		return root;
+		}
+		
+		Node left=LCA(root.left,n1, n2);
+		Node right=LCA(root.right,n1,n2);
+
+		if(left!=null && right!=null)
+		return root;
+		
+		return left==null?right:left;
+	}
+}
