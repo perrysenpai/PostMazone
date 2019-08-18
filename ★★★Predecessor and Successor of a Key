@@ -22,7 +22,7 @@ void preSucc(Node node, Res p, Res s, int key)
         s.succ=node;
         
         else
-        s.succ=node.data>s.succ.data?node:s.succ;
+        s.succ=node.data<s.succ.data?node:s.succ;
     }
     
     preSucc(node.left, p,s key);
