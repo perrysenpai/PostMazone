@@ -1,0 +1,60 @@
+Approach:  
+inorder:   4 8 2 5 1 6 3 7  left root right
+postorder: 8 4 5 2 6 7 3 1  left right root
+
+in postorder the last element of the array is the root.
+we find its postion in inorder and the array on left of it is the left subtree and on right is the right subtree. 
+the second last element of the postorder is the right children of root we find its location in the inorder and 
+then the third last elemet in postorder the right children of the node and so on. we use a check condition to check if 
+the element is a leaf .
+
+                                        1
+                                                      6  3 7
+                                                            3
+                                                                7
+                                                          6
+                       4 8 2 5
+                   2
+                       5
+                4
+                  8
+             
+Solution:  
+class GfG
+{
+    static int i=0;
+    Node buildTree(int in[], int post[], int n)
+	{
+	    i=n-1;
+        return buildUtil(in, post, 0 ,n-1);
+	}
+	
+	Node buildUtil(int in[], int post[], int start, int end)
+	{
+	    if(start>end)
+	    return null;
+	    
+	    Node x=new Node(post[i]);
+	    i--;
+	    if(start==end)
+	    return x;
+	    
+	    int loc=search(in, x.data, start, end);
+	    
+	    x.right=buildUtil(in ,post, loc+1, end);
+	    x.left=buildUtil(in,post, start, loc-1);
+	    
+	    return x;
+	    
+	}
+	int search(int[] ar, int x, int start, int end)
+	{
+	    for(int j=start; j<=end;j++)
+	    if(ar[j]==x)
+	    return j;
+	    
+	    return -1;
+	}
+}
+
+                                                      
