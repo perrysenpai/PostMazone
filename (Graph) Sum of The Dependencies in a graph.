@@ -1,0 +1,41 @@
+Given a directed graph with n nodes. If there is an edge from u to v then u depends on v. 
+Our task is to find out the sum of dependencies for every node.
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+ {
+    
+	public static void main (String[] args)
+	 {
+	 Scanner scan=new Scanner(System.in);
+	 int cases=scan.nextInt();
+	 while(cases-->0)
+	 {
+	    int V=scan.nextInt();
+	    int E=scan.nextInt();
+	    
+	    List<Integer> list[]=new ArrayList[V];
+	    for(int i=0; i<V; i++)
+	    list[i]=new ArrayList<Integer>();
+
+	    for(int i=0; i<2*E; i=i+2)
+	    {
+	        int x=scan.nextInt();
+	        int y=scan.nextInt();
+	        addEdge(list, x, y);
+	    }
+	    int sum=0;
+	    
+	    for(int i=0; i<V; i++)
+	    sum+=list[i].size();
+	    System.out.println(sum);
+	 }
+	 }
+   	static void addEdge( List<Integer> adj[], int u,int v) 
+    { 
+        adj[u].add(v); 
+    }
+    
+    }
