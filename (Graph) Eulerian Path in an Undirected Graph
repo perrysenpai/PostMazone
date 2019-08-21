@@ -1,0 +1,41 @@
+Euler paths and Euler circuits :
+
+An Euler path is a path that uses every edge of a graph exactly once.
+An Euler circuit is a circuit that uses every edge of a graph exactly once.
+An Euler path starts and ends at different vertices.
+An Euler circuit starts and ends at the same vertex.
+
+Condition: A connected multigraph or simple graph has a EULER CIRCUIT iff every vertex has an even degree.
+           A connected multigraph or simple graph has a EULER PATH iff it has ONLY TWO vertices with odd degree.
+
+A. to check if there is eulerian path or not.
+
+public static void main (String[] args)
+	 {
+	 Scanner scan=new Scanner(System.in);
+	 int cases=scan.nextInt();
+	 while(cases-->0)
+	 {
+	    int len=scan.nextInt();
+	    int ar[][]=new int[len][len];
+
+	    int odd=0;
+	    for(int i=0; i<len; i++)
+	    {
+	         int count=0;
+	         for(int j=0; j<len; j++)
+	         {
+	            ar[i][j]=scan.nextInt();
+	            if(ar[i][j]==1)
+	            count++;
+	         }
+	         if(count%2==1)
+	         odd++;
+	    }
+	    
+	    if(odd==2)
+	    System.out.println(1);
+	    else
+	    System.out.println(0);
+	 }
+	 }
