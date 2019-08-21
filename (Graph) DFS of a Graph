@@ -1,0 +1,60 @@
+import java.util.*;
+public class MyClass {
+    static class Graph
+    {
+        int V;
+        LinkedList<Integer> adj[];
+        Graph(int V)
+        {
+            this.V=V;
+            adj=new LinkedList[V];
+            
+            for(int i=0; i<V; i++)
+            adj[i]=new LinkedList<Integer>();
+        }
+    }
+    
+    public static void addEdge(Graph graph, int src, int dest)
+    {
+        graph.adj[src].add(dest);
+    }
+    
+    static void DFS(Graph graph)
+      {
+          boolean visited[]=new boolean[graph.V];
+          Arrays.fill(visited,false);
+          dfsUtil(0, graph.adj, visited);
+      }
+      
+      static void dfsUtil(int src, LinkedList<Integer>[] ar, boolean[] visited)
+      {
+          visited[src]=true;
+          System.out.print(src+" ");
+          
+          Iterator<Integer> i=ar[src].listIterator();
+          while(i.hasNext())
+          {
+              int n=i.next();
+              if(visited[n]==false)
+              dfsUtil(n, ar, visited);
+          }
+      }
+    
+    public static void main(String args[]) {
+      Scanner scan=new Scanner(System.in);
+      int V=scan.nextInt();
+      int E=scan.nextInt();
+      
+      Graph graph=new Graph(V);
+      for(int i=0 ; i<E; i++)
+      {
+          int a=scan.nextInt();
+          int b=scan.nextInt();
+          
+          addEdge(graph, a, b);
+      }
+      
+      DFS(graph);
+      
+    }
+}
