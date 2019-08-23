@@ -1,0 +1,35 @@
+Funtion only:
+
+DFS( Graph graph)
+{
+    boolean visited[]=new boolean[graph.V];
+    for(int i=0; i<graph.V; i++)
+    if(visited[i]==false)
+    DFSutil(graph, visited, i);
+}
+
+DFSutil(Graph graph, boolean visited[], int src)
+{
+    Stack<Integer> st=new Stack<Integer>();
+    st.push(st);
+    while(!st.isEmpty())
+    {
+        int s=st.pop();
+        if(visited[s]==false)
+        {
+        System.out.print(s);
+        visited[s]=true;
+        }
+        
+        Iterator<Integer> i=graph.adj[s].listIterator();
+        while(i.hasNext())
+        {
+            int n=i.next();
+            if(visited[n]==false)
+            st.push(n);
+        }
+        
+        
+    }
+    
+}
