@@ -1,0 +1,23 @@
+static void bfs(int s, ArrayList<ArrayList<Integer>> list, boolean vis[], int nov)
+    {
+      Queue<Integer> q=new LinkedList<Integer>();
+      q.add(s);
+      vis[s]=true;
+      
+      while(!q.isEmpty())
+      {
+          int top=q.remove();
+          
+          System.out.print(top+" ");
+          Iterator<Integer> i=list.get(top).listIterator();
+          while(i.hasNext())
+          {
+              int n=i.next();
+              if(vis[n]==false)
+              {
+                  vis[n]=true;
+                  q.add(n);
+              }
+          }
+      }
+    }
