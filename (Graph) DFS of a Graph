@@ -31,7 +31,7 @@ public class MyClass {
            
            for(int i=0; i<Graph.V; i++)
            {
-                if(visited[i]==false)
+                if(visited[i]==false)   // if the visited i for this vertex is already true then it means it must have been printed. so dont need to dfs of this.
                 dfsUtil( src,  graph.adj, visited)
            }
        }
