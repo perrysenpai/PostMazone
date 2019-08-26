@@ -1,0 +1,49 @@
+How to find mother vertex?
+
+Undirected Connected Graph : In this case, all the vertices are mother vertices as we can reach to all the other nodes in the graph.
+Undirected/Directed Disconnected Graph :In this case, there is no mother vertices as we cannot reach to all the other nodes in the graph.
+Directed Connected Graph : In this case, we have to find a vertex v in the graph such that we can reach to all the other nodes in the graph through a directed path.
+
+Approach: What we can do is do dfs for every node and see which one visites all the vertices , but this takes O(V(E+V))
+          Instead what we can do is :
+          we know that during dfs the dfsutil is called only when the given vertex has visited[v]==false.
+          it means if for 3 vertices dfsutil is called , then for 4th vertex dfsutil is called only and only if any of these previous vertices
+          have not viisted this 4th vertex , otherwise it would have been visited[4]=true and dfsutil wouldnt have been called.
+          it means that for the any vertex, v if dfs util is called then it is still not visited and thus no vertex previously was mother index otherwise
+          this means that the last vertex visited could be the mother vertex.
+          now we only have to check if this last one is mother vertex or not i.e it visits all the vertex or not.
+          
+Solution:
+static int findMother(ArrayList<ArrayList<Integer>> list, int n)
+    {
+        boolean visited[]=new boolean[n];
+        int last=0;
+        
+        for(int i=0; i<n; i++)
+        {
+            if(visited[i]==false)
+            {
+            DFSutil(i, list, visited);
+            last=i;      
+            }
+        }
+        
+        Arrays.fill(visited, false);
+        DFSutil(last, list, visited);
+        for(int i=0; i<n; i++)
+        if(visited[i]==false)
+        return -1;
+        return last;
+        
+    }
+    static void DFSutil(int src, ArrayList<ArrayList<Integer>> list, boolean[] visited)
+    {
+        visited[src]=true;
+        Iterator<Integer> i=list.get(src).listIterator();
+        while(i.hasNext())
+        {
+            int n=i.next();
+            if(visited[n]==false)
+            DFSutil(n, list, visited);
+        }
+    }
