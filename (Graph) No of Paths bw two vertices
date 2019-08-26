@@ -1,0 +1,77 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+ {
+    static int count=0;
+    static class Graph
+    {
+        ArrayList<Integer> adj[];
+        int V;
+        Graph(int v)
+        {
+            V=v;
+            
+            adj=new ArrayList[v];
+            for(int i=0; i<v; i++)
+            adj[i]=new ArrayList<Integer>();
+        }
+    }
+    
+    public static void addEdge(Graph graph, int src, int dest)
+    {
+        graph.adj[src].add(dest);
+    }
+    
+	public static void main (String[] args)
+	 {
+	 Scanner scan=new Scanner(System.in);
+	 int cases=scan.nextInt();
+	 while(cases-->0)
+	 {
+	    int V=scan.nextInt();
+	    int E=scan.nextInt();
+	    Graph graph=new Graph(V);
+	    
+	    for(int i=0; i<E; i++)
+	    addEdge(graph, scan.nextInt(), scan.nextInt());
+	    
+	    int src=scan.nextInt();
+	    int des=scan.nextInt();
+	    
+	    
+	    count=0;
+	    System.out.println(countPaths(graph.adj, src, des));
+	    
+	 }
+	 }
+	 
+	 static int countPaths(ArrayList<Integer>[] list, int src, int dest)
+	 {
+	     
+	     boolean visited[]=new boolean[list.length];
+	     countUtil(list, src, dest, visited);
+	     return count;
+	 }
+	 
+	 static void countUtil(ArrayList<Integer>[] list, int src, int dest, boolean[] visited)
+	 {
+	     visited[src]=true;
+	     
+	     if(src==dest)
+	     count++;
+	     
+	     else
+	     {
+	         Iterator<Integer> i=list[src].listIterator();
+	         while(i.hasNext())
+	         {
+	             int n=i.next();
+	             if(visited[n]==false)
+	             countUtil(list, n, dest, visited);
+	         }
+	     }
+	     
+	     visited[src]=false;   //?????
+	 }
+}
