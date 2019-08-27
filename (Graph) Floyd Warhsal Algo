@@ -1,0 +1,64 @@
+The problem is to find shortest distances between every pair of vertices in a given edge weighted directed Graph. 
+The Graph is represented as Adjancency Matrix, and the Matrix denotes the weight of the edegs (if it exists) else INF (1e7).
+
+Input:
+       graph[][] = { {0,   5,  INF, 10},
+                    {INF,  0,  3,  INF},
+                    {INF, INF, 0,   1},
+                    {INF, INF, INF, 0} }
+which represents the following graph
+             10
+       (0)------->(3)
+        |         /|\
+      5 |          |
+        |          | 1
+       \|/         |
+       (1)------->(2)
+            3       
+Note that the value of graph[i][j] is 0 if i is equal to j 
+And graph[i][j] is INF (infinite) if there is no edge from vertex i to j.
+
+Output:
+Shortest distance matrix
+      0      5      8      9
+    INF      0      3      4
+    INF    INF      0      1
+    INF    INF    INF      0 
+    
+ 
+ 
+APPROACH: make an auxiliary matrix same as the given adj matrix.
+          now we will check that if for each vertex pair i,j if
+          there is a path like i,k + k,j so that the sum of i,k+k,j < i,j
+          
+    public static void floydWarshal(int ar[][], int V)
+	 {
+	    int aux[][]=new int[V][V];
+	    
+	    for(int i=0; i<V; i++)
+	    for(int j=0; j<V; j++)
+	    aux[i][j]=ar[i][j];   // copying the data
+	     
+	     int src=0,dest=0,mid=0;
+	     for(mid=0; mid<V; mid++)
+	     for(src=0; src<V; src++)
+	     for(dest=0; dest<V; dest++)
+	     {
+	         if(aux[src][dest]>aux[src][mid]+aux[mid][dest])
+	         aux[src][dest]=aux[src][mid]+aux[mid][dest];
+	     }
+	     
+	     //O(V^3)
+	     
+	   for(int i=0; i<V; i++)
+	   {
+	     for(int j=0; j<V; j++)
+	     {
+	         if(aux[i][j]>=10000000)
+	         System.out.print("INF"+" ");
+	         else
+	         System.out.print(aux[i][j]+" ");
+	     }
+	    System.out.println();
+	   }
+	 }
