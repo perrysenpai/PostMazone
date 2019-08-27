@@ -27,7 +27,7 @@ Shortest distance matrix
     
  
  
-APPROACH: make an auxiliary matrix same as the given adj matrix.
+APPROACH: make an auxiliary matrix same as the given graph matrix.
           now we will check that if for each vertex pair i,j if
           there is a path like i,k + k,j so that the sum of i,k+k,j < i,j
           
@@ -39,6 +39,8 @@ APPROACH: make an auxiliary matrix same as the given adj matrix.
 	    for(int j=0; j<V; j++)
 	    aux[i][j]=ar[i][j];   // copying the data
 	     
+	     
+// what happens below is for each src, dest matrix  we check again and again if there is path srx,mid  +mid,end less costly than original
 	     int src=0,dest=0,mid=0;
 	     for(mid=0; mid<V; mid++)
 	     for(src=0; src<V; src++)
