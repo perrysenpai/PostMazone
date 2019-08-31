@@ -1,0 +1,109 @@
+The minions are very elitist in nature.
+If minion x admires minion y, then y thinks too high of himself and does not admire x
+back.Also, if x admires y, x also admires everyone that y admires. All minions are going
+to be present at the “Villain Con”.The minions wanted to make sure that they do not
+wear dress of same color as someone who admires them.
+Given who admires whom Gru (Minion’s Master) thought of finding the minimum
+number of different colored dresses that minions will be seen.
+Input:
+1
+5 6
+1 3
+2 3
+3 4
+1 4
+2 5
+3 5
+
+
+Output:
+3
+
+
+Approach: what we do is establish relationship as graph
+1-> 3,4
+2-> 3,5
+3-> 4,5
+4-> 
+5->
+
+
+we only visit univisited vertex and lets say start with 1.
+we have a fill array which tells us about the different colors for each vertex. e.g how many people like vertex 1 will be in fill[1].
+we go depth wise  and increment a col variable by 1.
+
+
+
+
+Solution: 
+
+import java.util.*;
+class GFG
+ {
+	public static void main (String[] args)
+	 {
+	 Scanner scan=new Scanner(System.in);
+	 int cases=scan.nextInt();
+	 while(cases-->0)
+	 {
+	    int V=scan.nextInt();
+	    int E=scan.nextInt(); 
+	    int max=0;
+
+	    ArrayList<Integer> list[]=new ArrayList[V];
+	    for(int i=0; i<V; i++)
+	    list[i]=new ArrayList<Integer>();
+	    
+	    for(int i=0; i<E; i++)
+	    {
+	        int x=scan.nextInt()-1;
+	        int y=scan.nextInt()-1;
+	        
+	        list[x].add(y);
+	    }
+	    
+	   color(list, V);
+	 }
+	 }
+	 
+	public static void color(ArrayList<Integer>[] list,  int V)
+	{
+	   boolean visited[]=new boolean[V];
+	   int fill[]=new int[V];
+	   for(int i=0; i<V; i++)
+	   {
+	       if(visited[i]==false)
+	       {
+	            dfs(i, list, visited, fill);    
+	       }
+	        //System.out.println(Arrays.toString(fill));
+	   }
+	   
+	   
+	  
+	   int max=0;
+	   for(int i=0; i<V; i++)
+	   {
+	       max=Math.max(fill[i],max);
+	   }
+	   System.out.println(max);
+	}
+	
+	public static void dfs(int src, ArrayList<Integer>[] list, boolean[] visited,int[] fill)
+	{
+	    visited[src]=true;
+	    int col=0;
+	    for(int i=0; i<list[src].size(); i++)
+	    {
+	        int next=list[src].get(i);
+	        if(visited[next]==false)
+	        {
+	            dfs(next, list,visited, fill);
+	        }
+            col=Math.max(fill[next], col);
+	    }
+	    fill[src]=col+1;
+	   
+	}
+	 
+}
