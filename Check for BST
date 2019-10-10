@@ -1,1 +1,22 @@
 if the inorder of tree is sorted then it is BST.
+
+
+
+APPRAOCH 2:  we go down the tree and reset limit for left and right
+int isBST(Node root)  
+    {
+        if(BST(root, -9999999 , 9999999)==true)
+        return 1;
+        return 0;
+    }
+    
+    boolean BST(Node node, int min, int max)
+    {
+        if(node==null)
+        return true;
+        
+        if(node.data<min || node.data>max)
+        return false;
+        
+        return BST(node.left, min , node.data)&& BST(node.right, node.data,max );
+    }
